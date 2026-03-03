@@ -1,0 +1,195 @@
+# HIPAA Compliance Template for AI Agents
+# PrivacyGuard MCP - Automated HIPAA Enforcement
+# 
+# This template automatically enforces HIPAA Privacy Rule and Security Rule
+# for AI agents handling Protected Health Information (PHI).
+#
+# Reference: 45 CFR Parts 160, 162, and 164 (HIPAA Regulations)
+
+[compliance]
+name = "HIPAA"
+version = "2026.1"
+effective_date = "2026-03-02"
+last_updated = "2026-03-02"
+regulatory_body = "U.S. Department of Health & Human Services (HHS)"
+certification_available = true
+
+[definitions]
+# PHI = Protected Health Information
+# Covered Entity = Healthcare provider, health plan, healthcare clearinghouse
+# Business Associate = Vendor that handles PHI on behalf of covered entity
+
+phi_patterns = [
+    "patient", "diagnosis", "treatment", "prescription", "medication",
+    "medical record", "health record", "clinical", "symptom", "prognosis",
+    "lab result", "blood test", "x-ray", "mri", "scan", "imaging",
+    "insurance claim", "billing code", "icd-10", "cpt code",
+    "ssn", "social security", "date of birth", "dob", "medical mrn",
+    "hipaa", "phi", "protected health information"
+]
+
+# All PHI must be encrypted in transit and at rest
+[encryption]
+phi_in_transit = "required"
+phi_at_rest = "required"
+minimum_tls_version = "1.3"
+encryption_algorithm = "AES-256-GCM"
+key_rotation_days = 90
+
+# PHI cannot be sent to cloud LLMs without explicit BAA
+[routing]
+phi_route_to_cloud = "blocked"
+phi_route_to_local = "required"
+local_llm_required = true
+cloud_exception_requires = ["business_associate_agreement", "explicit_consent"]
+
+# Audit logging required for all PHI access
+[audit]
+phi_access_logging = "required"
+log_retention_years = 6
+log_fields = [
+    "timestamp", "user_id", "action", "resource",
+    "ip_address", "device_id", "access_granted", "denial_reason"
+]
+tamper_evident = true
+real_time_alerts = true
+
+# Access controls - minimum necessary rule
+[access_control]
+minimum_necessary = true  # Only access PHI needed for task
+role_based_access = true
+unique_user_identification = true
+automatic_logoff_minutes = 15
+failed_login_lockout_attempts = 5
+
+# Consent management
+[consent]
+patient_consent_required = true
+consent_revocable = true
+consent_documentation = "required"
+minimum_age_for_consent = 18
+
+# Breach notification
+[breach_notification]
+notification_required = true
+notify_hhs_days = 60
+notify_individual_days = 60
+notify_media_threshold = 500  # Individuals affected
+
+# Business associate requirements
+[business_associate]
+baa_required = true
+baa_template_included = true
+subcontractor_requirements = "flow_down"
+ba_termination_procedures = true
+
+# Training requirements
+[training]
+hipaa_training_required = true
+training_frequency_days = 365
+training_documentation = "required"
+
+# Risk assessment
+[risk_assessment]
+required = true
+frequency_days = 365
+documentation_required = true
+remediation_tracking = true
+
+# Automated enforcement rules
+[[rules]]
+id = "HIPAA-001"
+name = "PHI Detection"
+description = "Automatically detect PHI in agent inputs"
+action = "classify_and_route"
+severity = "critical"
+enabled = true
+
+[[rules]]
+id = "HIPAA-002"
+name = "PHI Cloud Block"
+description = "Block PHI from being sent to cloud LLMs without BAA"
+action = "block_and_alert"
+severity = "critical"
+enabled = true
+
+[[rules]]
+id = "HIPAA-003"
+name = "Audit Log All PHI Access"
+description = "Log every access to PHI with full context"
+action = "log_and_track"
+severity = "high"
+enabled = true
+
+[[rules]]
+id = "HIPAA-004"
+name = "Minimum Necessary Access"
+description = "Enforce minimum necessary rule for PHI access"
+action = "restrict_and_validate"
+severity = "high"
+enabled = true
+
+[[rules]]
+id = "HIPAA-005"
+name = "Encryption Enforcement"
+description = "Ensure all PHI is encrypted in transit and at rest"
+action = "encrypt_and_verify"
+severity = "critical"
+enabled = true
+
+[[rules]]
+id = "HIPAA-006"
+name = "Access Timeout"
+description = "Auto-logoff after 15 minutes of inactivity"
+action = "timeout_session"
+severity = "medium"
+enabled = true
+
+[[rules]]
+id = "HIPAA-007"
+name = "Breach Detection"
+description = "Detect and alert on potential PHI breaches"
+action = "detect_and_notify"
+severity = "critical"
+enabled = true
+
+# Certification requirements
+[certification]
+available = true
+audit_required = true
+audit_frequency_days = 365
+certification_fee_usd = 2500
+renewal_fee_usd = 1000
+requirements = [
+    "Pass automated HIPAA compliance scan",
+    "Complete security risk assessment",
+    "Document policies and procedures",
+    "Complete HIPAA training",
+    "Sign business associate agreement",
+    "Pass annual audit"
+]
+
+# Insurance partnership
+[insurance]
+partner_available = true
+estimated_premium_reduction_percent = 15
+partner_carriers = ["To be announced"]
+requirements = [
+    "Active PrivacyGuard Certification",
+    "No breaches in past 12 months",
+    "Annual compliance audit passed"
+]
+
+# Reporting
+[reporting]
+compliance_dashboard = true
+real_time_status = true
+export_formats = ["PDF", "CSV", "JSON"]
+scheduled_reports = true
+report_recipients = ["compliance_officer", "ciso", "legal"]
+
+# Contact for compliance questions
+[contact]
+compliance_email = "compliance@privacyguard.ai"
+support_email = "support@privacyguard.ai"
+emergency_breach_hotline = "1-800-PRIVACY"

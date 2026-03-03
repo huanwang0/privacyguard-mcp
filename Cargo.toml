@@ -1,0 +1,18 @@
+[package]
+name = "privacyguard-mcp"
+version = "0.1.0"
+edition = "2021"
+description = "A Rust-powered MCP server for privacy auditing, consent management, and Ollama-based policy analysis."
+keywords = ["mcp", "model-context-protocol", "rust", "privacy", "ollama"]
+categories = ["development-tools", "privacy"]
+license = "MIT"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+reqwest = { version = "0.11", features = ["json"] }
+regex = "1"
+toml = "0.8"
+uuid = { version = "1", features = ["v4"] }

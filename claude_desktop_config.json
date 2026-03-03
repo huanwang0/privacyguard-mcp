@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "privacyguard": {
+      "command": "./target/release/privacyguard-mcp",
+      "args": ["--config", "config.toml"],
+      "env": {
+        "RUST_LOG": "info"
+      }
+    }
+  }
+}
