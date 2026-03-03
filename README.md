@@ -6,6 +6,8 @@ Private AI agent infrastructure for routing sensitive prompts to local LLMs.
 [![MCP](https://img.shields.io/badge/MCP-Server-blue.svg)](https://modelcontextprotocol.io)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+![PrivacyGuard routing flow](assets/privacyguard-flow.svg)
+
 ## What it does
 
 - Classifies prompt text for sensitive keywords (PII/PHI/secrets)

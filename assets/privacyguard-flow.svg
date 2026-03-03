@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">PrivacyGuard MCP routing flow</title>
+  <desc id="desc">Diagram showing sensitive requests routed to local Ollama and non-sensitive requests routed to cloud LLM.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7fafc; }
+      .panel { fill: #ffffff; stroke: #1f2937; stroke-width: 2; rx: 14; }
+      .core { fill: #e0f2fe; stroke: #0369a1; stroke-width: 2.5; rx: 14; }
+      .local { fill: #dcfce7; stroke: #166534; stroke-width: 2.5; rx: 14; }
+      .cloud { fill: #fef3c7; stroke: #92400e; stroke-width: 2.5; rx: 14; }
+      .audit { fill: #ede9fe; stroke: #5b21b6; stroke-width: 2.5; rx: 14; }
+      .title { font: 700 30px sans-serif; fill: #0f172a; }
+      .label { font: 700 23px sans-serif; fill: #0f172a; }
+      .sub { font: 500 18px sans-serif; fill: #334155; }
+      .note { font: 600 18px sans-serif; fill: #0f172a; }
+      .safe { fill: #92400e; }
+      .sensitive { fill: #166534; }
+      .arrow { stroke: #334155; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .decision { stroke-dasharray: 7 7; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="700"/>
+  <text class="title" x="45" y="60">PrivacyGuard MCP: keep sensitive prompts local</text>
+
+  <rect class="panel" x="60" y="180" width="230" height="120"/>
+  <text class="label" x="92" y="230">MCP Client</text>
+  <text class="sub" x="92" y="260">Agent / IDE / App</text>
+
+  <rect class="core" x="390" y="130" width="350" height="220"/>
+  <text class="label" x="425" y="185">PrivacyGuard MCP Server</text>
+  <text class="sub" x="425" y="225">1. Analyze privacy level</text>
+  <text class="sub" x="425" y="255">2. Decide routing path</text>
+  <text class="sub" x="425" y="285">3. Return tool response</text>
+
+  <rect class="local" x="860" y="110" width="280" height="120"/>
+  <text class="label" x="890" y="160">Local Ollama</text>
+  <text class="sub" x="890" y="190">Sensitive prompts only</text>
+
+  <rect class="cloud" x="860" y="290" width="280" height="120"/>
+  <text class="label" x="890" y="340">Cloud LLM</text>
+  <text class="sub" x="890" y="370">Non-sensitive prompts</text>
+
+  <rect class="audit" x="390" y="430" width="350" height="150"/>
+  <text class="label" x="425" y="480">Audit Log</text>
+  <text class="sub" x="425" y="510">Decision + metadata</text>
+  <text class="sub" x="425" y="540">for compliance review</text>
+
+  <path class="arrow" d="M290 240 L390 240"/>
+  <path class="arrow decision" d="M740 205 L860 170"/>
+  <path class="arrow decision" d="M740 275 L860 350"/>
+  <path class="arrow" d="M565 350 L565 430"/>
+
+  <text class="note sensitive" x="760" y="185">Sensitive</text>
+  <text class="note safe" x="760" y="340">Non-sensitive</text>
+</svg>
